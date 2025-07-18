@@ -27,7 +27,16 @@ function Form({ route, method }) {
         navigate("/login");
       }
     } catch (error) {
-      alert(error);
+      if (error.response) {
+        console.error("Status:", error.response.status);
+        console.error("Response data:", error.response.data);
+        alert(
+          `Validation failed:\n${JSON.stringify(error.response.data, null, 2)}`
+        );
+      } else {
+        console.error("Network/CORS error", error.message);
+        alert(`Error: ${error.message}`);
+      }
     } finally {
       setLoading(false);
     }

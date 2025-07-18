@@ -24,10 +24,14 @@ function Home() {
   };
 
   const deleteNote = (id) => {
+    console.log(
+      "DELETE to:",
+      api.defaults.baseURL + `/api/notes/delete/${id}/`
+    );
     api
-      .delete(`/api/notes/delete/${id}`)
+      .delete(`/api/notes/delete/${id}/`)
       .then((res) => {
-        if (res.status === 204) alert("Note was delteted!");
+        if (res.status === 204) alert("Note was delteted.");
         else alert("Failed to Delete note.");
         getNotes();
       })
@@ -55,10 +59,10 @@ function Home() {
       <div>
         <h2>Notes</h2>
         {notes.map((note) => {
-          <Note note={note} onDelete={deleteNote} key={note.id} />;
+          return <Note note={note} onDelete={deleteNote} key={note.id} />;
         })}
       </div>
-      <h2>Creeate a Note</h2>
+      <h2>Create a Note</h2>
       <form onSubmit={createNote}>
         <label htmlFor="title">Title:</label>
         <br />
